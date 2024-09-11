@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Typography, CircularProgress, Paper, TextField, Button, List, ListItem, ListItemText } from '@mui/material';
+import {
+  Typography,
+  CircularProgress,
+  TextField,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  Card,
+  CardContent,
+  Grid,
+} from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 import { usePostDetails } from '../hooks/usePostDetails';
 
 const PostPage = () => {
@@ -13,7 +25,7 @@ const PostPage = () => {
     e.preventDefault();
     const newCommentObj = {
       name: 'Iqbal',
-      body: newComment
+      body: newComment,
     };
     setCommentList([newCommentObj, ...commentList]);
     setNewComment('');
@@ -33,41 +45,70 @@ const PostPage = () => {
 
   return (
     <div style={{ padding: '20px' }}>
-      <Paper style={{ padding: '20px', marginBottom: '20px' }}>
-        <Typography variant="h5" component="h1" gutterBottom>
-          {post?.title}
-        </Typography>
-        <Typography variant="body1" component="p" gutterBottom>
-          {post?.body}
-        </Typography>
-      </Paper>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Card style={{ backgroundColor: '#f9f9f9', padding: '20px' }}>
+            <CardContent>
+              <Typography variant="h5" component="h1" gutterBottom>
+                {post?.title}
+              </Typography>
+              <Typography variant="body1" component="p" gutterBottom>
+                {post?.body}
+              </Typography>
+            </CardContent>
+          </Card>
+        </Grid>
 
-      <Typography variant="h6" component="h2" gutterBottom>
-        Comments
-      </Typography>
-      <List>
-        {commentList.map((comment, index) => (
-          <ListItem key={index}>
-            <ListItemText primary={comment.name} secondary={comment.body} />
-          </ListItem>
-        ))}
-      </List>
+        <Grid item xs={12}>
+          <Typography variant="h6" component="h2" gutterBottom>
+            Comments
+          </Typography>
+          <List style={{ maxHeight: '300px', overflowY: 'auto' }}>
+            {commentList.map((comment, index) => (
+              <ListItem key={index} style={{ backgroundColor: '#f1f1f1', marginBottom: '10px', borderRadius: '8px' }}>
+                <ListItemText
+                  primary={<Typography variant="subtitle1" style={{ fontWeight: 'bold' }}>{comment.name}</Typography>}
+                  secondary={comment.body}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Grid>
 
-      <form onSubmit={handleAddComment} style={{ marginTop: '20px' }}>
-        <TextField
-          label="Add a comment"
-          variant="outlined"
-          fullWidth
-          multiline
-          rows={4}
-          value={newComment}
-          onChange={(e) => setNewComment(e.target.value)}
-          required
-        />
-        <Button type="submit" variant="contained" color="primary" style={{ marginTop: '10px' }}>
-          Kirim Comment
-        </Button>
-      </form>
+        <Grid item xs={12}>
+          <form onSubmit={handleAddComment} style={{ marginTop: '20px' }}>
+            <TextField
+              label="Add a comment"
+              variant="outlined"
+              fullWidth
+              multiline
+              rows={4}
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              required
+              style={{ marginBottom: '15px' }}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={{
+                display: 'block',
+                width: '100%',
+                backgroundColor: '#1976d2',
+                color: '#fff',
+                padding: '10px 0',
+                transition: 'background-color 0.3s ease',
+              }}
+              onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#1565c0'}
+              onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#1976d2'}
+            >
+              Kirim Comment
+              <SendIcon />
+            </Button>
+          </form>
+        </Grid>
+      </Grid>
     </div>
   );
 };
