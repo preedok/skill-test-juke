@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress, Typography, Button, TablePagination } from '@mui/material';
-import { usePosts } from '../hooks/usePosts';
+import { usePosts } from '@/hooks/usePosts';
 import { styled } from '@mui/material/styles';
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({

@@ -13,7 +13,7 @@ import {
   Grid,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import { usePostDetails } from '../hooks/usePostDetails'; 
+import { usePostDetails } from '@/hooks/usePostDetails'; 
 
 const PostPage = () => {
   const { id } = useParams(); 

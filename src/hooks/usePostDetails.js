@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getPostById, getCommentsByPostId } from '../services/apiService';
+import { getPostById, getCommentsByPostId } from '@/services/apiService';
 
 export const usePostDetails = (id) => {
     const [post, setPost] = useState(null);
