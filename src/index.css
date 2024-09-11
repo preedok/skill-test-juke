@@ -1,6 +1,6 @@
 @tailwind base; @tailwind components; @tailwind utilities;
 
 
-body{
-  margin: 20px 10rem;
+body {
+  @apply m-4 lg:m-10;
 }
