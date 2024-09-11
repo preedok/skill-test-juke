@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Typography,
@@ -13,22 +13,26 @@ import {
   Grid,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import { usePostDetails } from '../hooks/usePostDetails';
+import { usePostDetails } from '../hooks/usePostDetails'; 
 
 const PostPage = () => {
-  const { id } = useParams();
-  const { post, comments, loading, error } = usePostDetails(id);
+  const { id } = useParams(); 
+  const { post, comments, loading, error } = usePostDetails(id); 
   const [newComment, setNewComment] = useState('');
-  const [commentList, setCommentList] = useState(comments);
+  const [commentList, setCommentList] = useState([]);
+
+  useEffect(() => {
+    setCommentList(comments);
+  }, [comments]);
 
   const handleAddComment = (e) => {
     e.preventDefault();
     const newCommentObj = {
-      name: 'Iqbal',
+      name: 'Anonymous',
       body: newComment,
     };
-    setCommentList([newCommentObj, ...commentList]);
-    setNewComment('');
+    setCommentList([newCommentObj, ...commentList]); 
+    setNewComment(''); 
   };
 
   if (loading) {
@@ -38,6 +42,7 @@ const PostPage = () => {
       </div>
     );
   }
+
 
   if (error) {
     return <Typography variant="h6">Error loading post: {error.message}</Typography>;
@@ -103,7 +108,7 @@ const PostPage = () => {
               onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#1565c0'}
               onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#1976d2'}
             >
-              Kirim Comment
+              Submit Comment
               <SendIcon />
             </Button>
           </form>
